@@ -7,6 +7,7 @@
   "scripts": {
     "build": "node build.js",
     "test": "bun test",
+    "zip": "powershell Compress-Archive -Path dist/* -DestinationPath smiles-skill-dist.zip -Force",
     "prepublishOnly": "bun run build"
   },
   "keywords": [
