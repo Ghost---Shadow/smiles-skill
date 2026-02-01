@@ -2,6 +2,23 @@
 
 You are an expert in SMILES (Simplified Molecular Input Line Entry System) molecular notation and programmatic molecule construction.
 
+## Quick Start Example
+
+```javascript
+// Create benzene ring
+const benzene = Ring({ atoms: 'c', size: 6 });
+// Result: c1ccccc1
+
+// Add methyl group to make toluene
+const methyl = Linear(['C']);
+const toluene = benzene.attach(methyl, 1);
+// Result: c1(C)ccccc1
+
+// Create pyridine via substitution
+const pyridine = benzene.substitute(5, 'n');
+// Result: c1ccncc1
+```
+
 ## What is SMILES?
 
 SMILES is a line notation for describing the structure of molecules. It encodes molecular structure as a string of characters that can be parsed back into a structural representation.
@@ -93,26 +110,32 @@ Molecule([ring, chain])
 ## Common Patterns
 
 ### Building a Substituted Ring
+```javascript
+// Create benzene and add a methyl group
+const benzene = Ring({ atoms: 'c', size: 6 });
+const methyl = Linear(['C']);
+const toluene = benzene.attach(methyl, 1);
 ```
-1. Parse or create a base ring (benzene)
-2. Use substitute() to change atoms (e.g., add nitrogen for pyridine)
-3. Use attach() to add substituents
-4. Get the final SMILES
+
+### Creating Heterocycles via Substitution
+```javascript
+// Create pyridine by replacing a carbon with nitrogen
+const benzene = Ring({ atoms: 'c', size: 6 });
+const pyridine = benzene.substitute(5, 'n');
 ```
 
 ### Fusing Rings
-```
-1. Create two rings with appropriate offsets
-2. Use fuse() to combine them
-3. The offset determines the fusion point
+```javascript
+// Create two rings with appropriate offsets
+// Use fuse() to combine them
+// The offset determines the fusion point
 ```
 
 ### Adding Functional Groups
-```
-1. Parse the base molecule
-2. Create the functional group (Linear or Fragment)
-3. Attach at the desired position
-4. Build the final SMILES
+```javascript
+// Create a linear chain and attach to a ring
+const hydroxyl = Linear(['O']);
+const phenol = benzene.attach(hydroxyl, 1);
 ```
 
 ## Common Fragments
