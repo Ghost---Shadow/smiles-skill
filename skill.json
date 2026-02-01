@@ -1,0 +1,73 @@
+{
+  "name": "smiles",
+  "version": "0.1.0",
+  "description": "Parse, build, and manipulate SMILES molecular notation. Create molecules programmatically using Ring, Linear, and FusedRing constructors, or parse existing SMILES strings.",
+  "prompt": "skill-prompt.md",
+  "tools": [
+    {
+      "name": "parse_smiles",
+      "description": "Parse a SMILES string into an AST (Abstract Syntax Tree) that can be manipulated and converted back to SMILES",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smiles": {
+            "type": "string",
+            "description": "SMILES string to parse (e.g., 'c1ccccc1' for benzene, 'CCO' for ethanol)"
+          }
+        },
+        "required": ["smiles"]
+      }
+    },
+    {
+      "name": "build_smiles",
+      "description": "Build a SMILES string from an AST node object. Use this after modifying an AST from parse_smiles or constructing one programmatically",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "ast": {
+            "type": "object",
+            "description": "AST node object with type, atoms, size, substitutions, attachments, etc."
+          }
+        },
+        "required": ["ast"]
+      }
+    },
+    {
+      "name": "decompile_smiles",
+      "description": "Convert a SMILES string to JavaScript constructor code using Ring, Linear, FusedRing, and Molecule constructors",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smiles": {
+            "type": "string",
+            "description": "SMILES string to decompile to constructor code"
+          }
+        },
+        "required": ["smiles"]
+      }
+    },
+    {
+      "name": "validate_roundtrip",
+      "description": "Validate that a SMILES string can be parsed and regenerated with 100% fidelity",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "smiles": {
+            "type": "string",
+            "description": "SMILES string to validate"
+          }
+        },
+        "required": ["smiles"]
+      }
+    },
+    {
+      "name": "get_common_fragments",
+      "description": "Get a list of pre-built common molecular fragments and their SMILES representations",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  ]
+}

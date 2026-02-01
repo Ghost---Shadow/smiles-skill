@@ -1,0 +1,32 @@
+{
+  "name": "smiles-skill",
+  "version": "0.1.0",
+  "description": "Claude skill for parsing, building, and manipulating SMILES molecular notation",
+  "type": "module",
+  "main": "dist/skill.js",
+  "scripts": {
+    "build": "node build.js",
+    "test": "bun test",
+    "prepublishOnly": "bun run build"
+  },
+  "keywords": [
+    "smiles",
+    "claude",
+    "skill",
+    "chemistry",
+    "molecules",
+    "parser"
+  ],
+  "author": "SMILES Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ghost---Shadow/smiles-skill.git"
+  },
+  "dependencies": {
+    "smiles-js": "^1.0.5"
+  },
+  "devDependencies": {
+    "esbuild": "^0.27.2"
+  }
+}
