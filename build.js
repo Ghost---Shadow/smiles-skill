@@ -46,12 +46,19 @@ async function build() {
     );
     console.log('✓ Copied skill.json');
 
-    // Copy skill-prompt.md to dist
-    copyFileSync(
-      join(__dirname, 'skill-prompt.md'),
-      join(distDir, 'skill-prompt.md')
-    );
-    console.log('✓ Copied skill-prompt.md');
+    // Fetch latest API.md from smiles-js repo as skill-prompt.md
+    try {
+      const res = await fetch('https://raw.githubusercontent.com/Ghost---Shadow/smiles-js/main/API.md');
+      if (res.ok) {
+        writeFileSync(join(distDir, 'skill-prompt.md'), await res.text());
+        console.log('✓ Fetched skill-prompt.md from smiles-js API.md');
+      } else {
+        throw new Error(`HTTP ${res.status}`);
+      }
+    } catch (fetchErr) {
+      console.log(`⚠ Could not fetch API.md (${fetchErr.message}), using local copy`);
+      copyFileSync(join(__dirname, 'skill-prompt.md'), join(distDir, 'skill-prompt.md'));
+    }
 
     // Create package.json for the dist
     const pkgJson = JSON.parse(readFileSync(join(__dirname, 'package.json'), 'utf-8'));
